@@ -9,18 +9,33 @@ const {test, expect} = require('@jest/globals');
 // createSlug dovrebbe lanciare un errore se manca l'array dei post
 
 const  createSlug = (string) => {
-    
-    let slug = string;
-    if(typeof string !== "string"){
-        slug = string+"";
+    if(!string){
+        throw new Error();
     }
-    slug = slug
-            .replaceAll(" ", "-")
-            .toLowerCase();
+
+    if(typeof string !== "string"){
+        string = string+"";
+    }
+
+    if(string.trim().replaceAll("/", "").length === 0){
+        throw new Error();
+    }
+
+    string = string
+                .replaceAll(" ", "-")
+                .toLowerCase();
+    
+    const slugsList = ["hello", "hello-world"];
+    let baseSlug = string;
+    let counter = 1;
+
+    while(slugsList.includes(baseSlug)){
+        baseSlug = `${string}-${counter}`;
+        counter++;
+    }
 
 
-
-    return slug;
+    return baseSlug;
 }
 
 //createSlug returns a string
@@ -43,4 +58,17 @@ test('createSlug dovrebbe ritornare una stringa con gli spazi sostituiti da -', 
     const slug = createSlug("Hello World");
 
     expect(slug).toEqual(slug.replaceAll(" ", "-"));
+})
+
+test('createSlug dovrebbe incrementare di 1 lo slug quando esiste già', () => {
+    const slug = createSlug("Hello");
+    expect(slug).toBe("hello-1");
+})
+
+
+test('createSlug dovrebbe lanciare un errore in caso di titolo non presente o formato errato', () => {
+    
+    expect(() => createSlug() ).toThrowError();
+    expect(() => createSlug(undefined) ).toThrowError();
+    expect(() => createSlug("/") ).toThrowError();
 })
