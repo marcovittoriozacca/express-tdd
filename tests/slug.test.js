@@ -8,21 +8,23 @@ const {test, expect} = require('@jest/globals');
 // createSlug dovrebbe lanciare un errore in caso di titolo non presente o formato errato
 // createSlug dovrebbe lanciare un errore se manca l'array dei post
 
-
-// Non richiesta
-// it('definire la funzione createSlug()', () => {
-//     createSlug();
-//     expect(createSlug()).toBeDefined();
-// })
-
 const  createSlug = (string) => {
+    let slug = string;
     if(typeof string !== "string"){
-        string = string+"";
+        slug = string+"";
     }
-    return string;
+    slug = slug.toLowerCase();
+
+    return slug;
 }
 
 test('createSlug dovrebbe ritornare una stringa', () => {
 
     expect( typeof createSlug(12) ).toBe("string");
+})
+
+test('createSlug dovrebbe ritornare una stringa in lowercase', () => {
+    const slug = createSlug("Hello WORLD");
+
+    expect( slug ).toEqual(slug.toLowerCase());
 })
