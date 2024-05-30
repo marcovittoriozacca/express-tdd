@@ -6,27 +6,8 @@ const {test, expect} = require('@jest/globals');
 // read dovrebbe ritornare un array ✓
 // add dovrebbe aggiungere un elemento all’array dei dati e ritornare tutta la lista
 
-class Model {
-    data = [1,2,3,4,5];
-    constructor(filename){
-        if(!filename){
-            throw new Error
-        }
-        this.filename = filename;
-    }
+const Model = require('../models/Model.js');
 
-    read(){
-        return this.data;
-    }
-    add(value){
-        if(!value){
-            throw new Error;
-        }else{
-            this.data.push(value)
-            return this.read;
-        }
-    }
-}
 test("Model dovrebbe essere una classe (crea un'istanza della classe Model)", () => {
     const model = new Model("filename");
     expect(Model).toBeDefined();
