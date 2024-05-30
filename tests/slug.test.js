@@ -8,34 +8,7 @@ const postsList = require('../db/posts.json');
 // createSlug dovrebbe lanciare un errore in caso di titolo non presente o formato errato ✓
 // createSlug dovrebbe lanciare un errore se manca l'array dei post ✓
 
-const  createSlug = (string, posts) => {
-    if(!string || !posts){
-        throw new Error();
-    }
-
-    if(typeof string !== "string"){
-        string = string+"";
-    }
-
-    if(string.trim().replaceAll("/", "").length === 0){
-        throw new Error();
-    }
-
-    string = string
-                .replaceAll(" ", "-")
-                .toLowerCase();
-    
-    let baseSlug = string;
-    let counter = 1;
-    const slugsList = posts.map(e => e.slug);
-    while(slugsList.includes(baseSlug)){
-        baseSlug = `${string}-${counter}`;
-        counter++;
-    }
-
-
-    return baseSlug;
-}
+const createSlug = require('../utils.js');
 
 //createSlug returns a string
 test('createSlug dovrebbe ritornare una stringa', () => {
