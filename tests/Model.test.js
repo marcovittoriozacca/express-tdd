@@ -36,6 +36,8 @@ test("read dovrebbe ritornare un array", () => {
 
 test("add dovrebbe aggiungere un elemento all’array dei dati e ritornare tutta la lista", () => {
     const model = new Model("filename");
+    
     expect( () => model.add(undefined) ).toThrowError();
+    expect( model.add(3632) ).toEqual([1,2,3,4,5,3632]);
 })
 

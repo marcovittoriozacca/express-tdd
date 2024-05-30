@@ -15,7 +15,7 @@ class Model {
             throw new Error;
         }else{
             this.data.push(value)
-            return this.read;
+            return this.data;
         }
     }
 }
