@@ -13,18 +13,33 @@ const  createSlug = (string) => {
     if(typeof string !== "string"){
         slug = string+"";
     }
-    slug = slug.toLowerCase();
+    slug = slug
+            .replaceAll("/", "-")
+            .toLowerCase();
+
+
 
     return slug;
 }
 
+//createSlug returns a string
 test('createSlug dovrebbe ritornare una stringa', () => {
 
     expect( typeof createSlug(12) ).toBe("string");
 })
 
+
+//createSlug retuns a lower case string
 test('createSlug dovrebbe ritornare una stringa in lowercase', () => {
     const slug = createSlug("Hello WORLD");
 
     expect( slug ).toEqual(slug.toLowerCase());
+})
+
+
+//createSlug must replace all / with -
+test('createSlug dovrebbe ritornare una stringa con gli spazi sostituiti da -', () => {
+    const slug = createSlug("Hello/World");
+
+    expect(slug).toEqual(slug.replaceAll("/", "-"));
 })
