@@ -7,10 +7,10 @@ const  createSlug = (string, posts) => {
         string = string+"";
     }
 
-    if(string.trim().replaceAll("/", "").length === 0){
+    string = string.replace(/[^\w\s]|_/g, '');
+    if(string.length === 0){
         throw new Error();
     }
-
     string = string
                 .replaceAll(" ", "-")
                 .toLowerCase();

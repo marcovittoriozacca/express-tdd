@@ -9,7 +9,6 @@ const postsList = require('../db/posts.json');
 // createSlug dovrebbe lanciare un errore se manca l'array dei post ✓
 
 const createSlug = require('../utils.js');
-
 //createSlug returns a string
 test('createSlug dovrebbe ritornare una stringa', () => {
     const slug = createSlug(12, postsList);
@@ -41,13 +40,11 @@ test('createSlug dovrebbe incrementare di 1 lo slug quando esiste già', () => {
 
 test('createSlug dovrebbe lanciare un errore in caso di titolo non presente o formato errato', () => {
     
-    expect(() => createSlug() ).toThrowError();
-    expect(() => createSlug(undefined) ).toThrowError();
-    expect(() => createSlug(undefined, posts) ).toThrowError();
-    expect(() => createSlug("/") ).toThrowError();
+    expect(() => createSlug(undefined, postsList) ).toThrowError();
+    expect(() => createSlug("!£$%&/()=?^__:;*§éç°ç_:ç", postsList) ).toThrowError();
 })
 
 
 test("createSlug dovrebbe lanciare un errore se manca l'array dei post", () => {
-    expect( () => createSlug("slug", undefined) ).toThrowError();
+    expect( () => createSlug("test", undefined) ).toThrowError();
 })
